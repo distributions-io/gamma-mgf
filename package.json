@@ -1,7 +1,7 @@
 {
   "name": "distributions-gamma-mgf",
   "version": "0.0.0",
-  "description": "gamma distribution moment-generating function (MGF)",
+  "description": "Gamma distribution moment-generating function (MGF)",
   "author": {
     "name": "Philipp Burckhardt",
     "email": "pburckhardt@outlook.com"

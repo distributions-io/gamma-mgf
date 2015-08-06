@@ -50,7 +50,7 @@ describe( 'deepset mgf', function tests() {
 
 		for ( i = 0; i < data.length; i++ ) {
 			if ( isFiniteNumber( data[ i ].x ) && isFiniteNumber( expected[ i ].x ) ) {
-				assert.closeTo( data[ i ].x, expected[ i ].x, 1e-14 );
+				assert.closeTo( data[ i ].x, expected[ i ].x, 1e-10 );
 			}
 		}
 
@@ -70,7 +70,7 @@ describe( 'deepset mgf', function tests() {
 
 		for ( i = 0; i < data.length; i++ ) {
 			if ( isFiniteNumber( data[ i ].x[ 1 ] ) && isFiniteNumber( expected[ i ].x[ 1 ] ) ) {
-				assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-14, 'custom separator' );
+				assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-10, 'custom separator' );
 			}
 		}
 	});

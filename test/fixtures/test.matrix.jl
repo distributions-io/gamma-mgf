@@ -1,11 +1,11 @@
 using Distributions
 using JSON
 
-alpha = 1
-beta = 1
-d = Gamma( alpha,beta )
+alpha = 4
+beta = 6
+d = Gamma( alpha, 1/beta )
 
-x = linspace( 1, 0, 25 )
+x = linspace( 0, 5, 25 )
 
 dmgf(t) = mgf(d, t )
 y = map( dmgf, x )

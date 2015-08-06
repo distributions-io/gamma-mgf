@@ -141,7 +141,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 			'beta': validationData.beta
 				});
 				if ( isFiniteNumber( actual ) && isFiniteNumber( expected[ i ] ) ) {
-					assert.closeTo( actual, expected[ i ] , 1e-14 );
+					assert.closeTo( actual, expected[ i ] , 1e-10 );
 				}
 			}
 	});
@@ -168,7 +168,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 
 		for ( i = 0; i < actual.length; i++ ) {
 			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
-				assert.closeTo( actual[ i ], expected[ i ], 1e-15 );
+				assert.closeTo( actual[ i ], expected[ i ], 1e-10 );
 			}
 		}
 		// Mutate...
@@ -181,7 +181,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 
 		for ( i = 0; i < data.length; i++ ) {
 			if ( isFiniteNumber( data[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
-				assert.closeTo( data[ i ], expected[ i ], 1e-15 );
+				assert.closeTo( data[ i ], expected[ i ], 1e-10 );
 			}
 		}
 	});
@@ -193,7 +193,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 			expected,
 			i;
 
-		data = new Float32Array( validationData.data );
+		data = new Float64Array( validationData.data );
 
 		expected = new Float64Array( validationData.expected.map( function( d ) {
 			return d === 'Inf' ? Infinity : d;
@@ -207,7 +207,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 
 		for ( i = 0; i < actual.length; i++ ) {
 			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
-				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+				assert.closeTo( actual[ i ], expected[ i ], 1e-10 );
 			}
 		}
 
@@ -217,14 +217,14 @@ describe( 'distributions-gamma-mgf', function tests() {
 			'alpha': validationData.alpha,
 			'beta': validationData.beta
 		});
-		expected = new Float32Array( validationData.expected.map( function( d ) {
+		expected = new Float64Array( validationData.expected.map( function( d ) {
 			return d === 'Inf' ? Infinity : d;
 		}) );
 		assert.strictEqual( actual, data );
 
 		for ( i = 0; i < actual.length; i++ ) {
 			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
-				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+				assert.closeTo( actual[ i ], expected[ i ], 1e-10 );
 			}
 		}
 	});
@@ -253,7 +253,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 
 		for ( i = 0; i < actual.length; i++ ) {
 			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
-				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+				assert.closeTo( actual[ i ], expected[ i ], 1e-10 );
 			}
 		}
 	});
@@ -282,7 +282,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 
 		for ( i = 0; i < actual.length; i++ ) {
 			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
-				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+				assert.closeTo( actual[ i ], expected[ i ], 1e-10 );
 			}
 		}
 
@@ -297,7 +297,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 
 		for ( i = 0; i < actual.length; i++ ) {
 			if ( isFiniteNumber( actual[ i ] ) && isFiniteNumber( expected[ i ] ) ) {
-				assert.closeTo( actual[ i ], expected[ i ], 1e-14 );
+				assert.closeTo( actual[ i ], expected[ i ], 1e-10 );
 			}
 		}
 
@@ -335,7 +335,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 
 		for ( i = 0; i < data.length; i++ ) {
 			if ( isFiniteNumber( data[ i ].x[ 1 ] ) && isFiniteNumber( expected[ i ].x[ 1 ] ) ) {
-				assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-14 );
+				assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-10 );
 			}
 		}
 
@@ -353,7 +353,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 
 		for ( i = 0; i < data.length; i++ ) {
 			if ( isFiniteNumber( data[ i ].x[ 1 ] ) && isFiniteNumber( expected[ i ].x[ 1 ] ) ) {
-				assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-14, 'custom separator' );
+				assert.closeTo( data[ i ].x[ 1 ], expected[ i ].x[ 1 ], 1e-10, 'custom separator' );
 			}
 		}
 	});
@@ -379,7 +379,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 
 		for ( i = 0; i < out.length; i++ ) {
 			if ( isFiniteNumber( out.data[ i ] ) && isFiniteNumber( d2[ i ] ) ) {
-				assert.closeTo( out.data[ i ], d2[ i], 1e-14 );
+				assert.closeTo( out.data[ i ], d2[ i], 1e-10 );
 			}
 		}
 
@@ -393,7 +393,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 
 		for ( i = 0; i < out.length; i++ ) {
 			if ( isFiniteNumber( out.data[ i ] ) && isFiniteNumber( d2[ i ] ) ) {
-				assert.closeTo( out.data[ i ], d2[ i ], 1e-14 );
+				assert.closeTo( out.data[ i ], d2[ i ], 1e-10 );
 			}
 		}
 	});
@@ -420,7 +420,7 @@ describe( 'distributions-gamma-mgf', function tests() {
 
 		for ( i = 0; i < out.length; i++ ) {
 			if ( isFiniteNumber( out.data[ i ] ) && isFiniteNumber( d2[ i ] ) ) {
-				assert.closeTo( out.data[ i ], d2[ i ], 1e-14 );
+				assert.closeTo( out.data[ i ], d2[ i ], 1e-10 );
 			}
 		}
 	});

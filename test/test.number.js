@@ -43,7 +43,7 @@ describe( 'number mgf', function tests() {
 		for ( var i = 0; i < data.length; i++ ) {
 			actual =  mgf( data[ i ], alpha, beta );
 			if ( isFiniteNumber( actual ) && isFiniteNumber( expected[ i ] ) ) {
-				assert.closeTo( actual, expected[ i ] , 1e-14 );
+				assert.closeTo( actual, expected[ i ] , 1e-10 );
 			}
 		}
 	});

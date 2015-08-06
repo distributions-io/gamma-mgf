@@ -2,17 +2,17 @@ Moment-Generating Function
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][codecov-image]][codecov-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> [gamma](https://en.wikipedia.org/wiki/gamma_distribution) distribution moment-generating function (MGF).
+> [Gamma](https://en.wikipedia.org/wiki/gamma_distribution) distribution moment-generating function (MGF).
 
 The [moment-generating function](https://en.wikipedia.org/wiki/Moment-generating_function) for a [gamma](https://en.wikipedia.org/wiki/gamma_distribution) random variable is
 
 <div class="equation" align="center" data-raw-text="
-    M_X(t) := \mathbb{E}\!\left[e^{tX}\right]" data-equation="eq:mgf_function">
+	M_X(t) := \mathbb{E}\!\left[e^{tX}\right] = \left( 1 - \frac{t}{\beta} \right)^{-\alpha}" data-equation="eq:mgf_function">
 	<img src="" alt="Moment-generating function (MGF) for a gamma distribution.">
 	<br>
 </div>
 
-where `alpha` is the shape parameter and `beta` is the rate parameter.
+where `alpha` is the shape parameter and `beta` is the rate parameter. For `t >= beta`, the MGF is not defined and this module returns `NaN`.
 
 ## Installation
 
@@ -40,36 +40,36 @@ var matrix = require( 'dstructs-matrix' ),
 	t,
 	i;
 
-out = mgf( 1 );
-// returns
-
 out = mgf( -1 );
-// returns 0
+// returns 0.5
 
-t = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
+out = mgf( 1 );
+// returns NaN
+
+t = [ 0, 0.2, 0.4, 0.6, 0.8, 1 ];
 out = mgf( t );
-// returns [...]
+// returns [ 1, 1.25, ~1.667, 2.5, 5, NaN ]
 
 t = new Int8Array( t );
 out = mgf( t );
-// returns Float64Array( [...] )
+// returns Float64Array( [1,1,~1.667,~1.667,5,5] )
 
 t = new Float32Array( 6 );
 for ( i = 0; i < 6; i++ ) {
-	t[ i ] = i * 0.5;
+	t[ i ] = i / 6;
 }
 mat = matrix( t, [3,2], 'float32' );
 /*
-	[ 0  0.5
-	  1  1.5
-	  2  2.5 ]
+	[  0   1/6
+	  2/6  3/6
+	  4/6  5/6 ]
 */
 
 out = mgf( mat );
 /*
-	[
-
-	   ]
+	[ ~1   ~1.2
+	  ~1.5 ~2
+	  ~3   ~6 ]
 */
 ```
 
@@ -86,13 +86,13 @@ The function accepts the following `options`:
 A [gamma](https://en.wikipedia.org/wiki/gamma_distribution) distribution is a function of 2 parameter(s): `alpha`(shape parameter) and `beta`(rate parameter). By default, `alpha` is equal to `1` and `beta` is equal to `1`. To adjust either parameter, set the corresponding option.
 
 ``` javascript
-var t = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
+var t = [ 0, 0.2, 0.4, 0.6, 0.8, 1 ];
 
 var out = mgf( t, {
 	'alpha': 2,
 	'beta': 4
 });
-// returns [...]
+// returns [ 1, ~1.108, ~1.235, ~1.384, ~1.562, ~1.778 ]
 ```
 
 For non-numeric `arrays`, provide an accessor `function` for accessing `array` values.
@@ -100,11 +100,11 @@ For non-numeric `arrays`, provide an accessor `function` for accessing `array` v
 ``` javascript
 var data = [
 	[0,0],
-	[1,0.5],
-	[2,1],
-	[3,1.5],
-	[4,2],
-	[5,2.5]
+	[1,0.2],
+	[2,0.4],
+	[3,0.6],
+	[4,0.8],
+	[5,1]
 ];
 
 function getValue( d, i ) {
@@ -114,7 +114,7 @@ function getValue( d, i ) {
 var out = mgf( data, {
 	'accessor': getValue
 });
-// returns [...]
+// returns [ 1, 1.25, ~1.667, 2.5, 5, NaN ]
 ```
 
 
@@ -123,11 +123,11 @@ To [deepset](https://github.com/kgryte/utils-deep-set) an object `array`, provid
 ``` javascript
 var data = [
 	{'x':[0,0]},
-	{'x':[1,0.5]},
-	{'x':[2,1]},
-	{'x':[3,1.5]},
-	{'x':[4,2]},
-	{'x':[5,2.5]}
+	{'x':[1,0.2]},
+	{'x':[2,0.4]},
+	{'x':[3,0.6]},
+	{'x':[4,0.8]},
+	{'x':[5,1]}
 ];
 
 var out = mgf( data, {
@@ -136,12 +136,12 @@ var out = mgf( data, {
 });
 /*
 	[
-		{'x':[0,]},
-		{'x':[1,]},
-		{'x':[2,]},
-		{'x':[3,]},
-		{'x':[4,]},
-		{'x':[5,]}
+		{'x':[0,1]},
+		{'x':[1,1.25]},
+		{'x':[2,~1.667]},
+		{'x':[3,2.5]},
+		{'x':[4,5]},
+		{'x':[5,NaN]}
 	]
 */
 
@@ -157,15 +157,19 @@ var t, out;
 t = new Int8Array( [0,1,2,3,4] );
 
 out = mgf( t, {
+	'alpha': 2,
+	'beta': 5,
 	'dtype': 'int32'
 });
-// returns Int32Array( [...] )
+// returns Int32Array( [1,1,2,6,25] )
 
 // Works for plain arrays, as well...
-out = mgf( [0,0.5,1,1.5,2], {
+out = mgf( [0,1,2,3,4], {
+	'alpha': 2,
+	'beta': 5,
 	'dtype': 'uint8'
 });
-// returns Uint8Array( [...] )
+// returns Uint8Array( [1,1,2,6,25] )
 ```
 
 By default, the function returns a new data structure. To mutate the input data structure (e.g., when input values can be discarded or when optimizing memory usage), set the `copy` option to `false`.
@@ -177,34 +181,34 @@ var bool,
 	t,
 	i;
 
-t = [ 0, 0.5, 1, 1.5, 2 ];
+t = [ 0, 0.2, 0.4, 0.6, 0.8, 1 ];
 
 out = mgf( t, {
 	'copy': false
 });
-// returns [...]
+// returns [ 1, 1.25, ~1.667, 2.5, 5, NaN ]
 
 bool = ( t === out );
 // returns true
 
 t = new Float32Array( 6 );
 for ( i = 0; i < 6; i++ ) {
-	t[ i ] = i * 0.5;
+	t[ i ] = i / 6;
 }
 mat = matrix( t, [3,2], 'float32' );
 /*
-	[ 0  0.5
-	  1  1.5
-	  2  2.5 ]
+	[  0   1/6
+	  2/6  3/6
+	  4/6  5/6 ]
 */
 
 out = mgf( mat, {
 	'copy': false
 });
 /*
-	[
-
-	   ]
+	[ ~1   ~1.2
+	  ~1.5 ~2
+	  ~3   ~6 ]
 */
 
 bool = ( mat === out );
@@ -284,7 +288,7 @@ var data,
 // Plain arrays...
 data = new Array( 10 );
 for ( i = 0; i < data.length; i++ ) {
-	data[ i ] = i * 0.5;
+	data[ i ] = i / 10;
 }
 out = mgf( data );
 
@@ -315,7 +319,7 @@ out = mgf( data, {
 // Typed arrays...
 data = new Float32Array( 10 );
 for ( i = 0; i < data.length; i++ ) {
-	data[ i ] = i * 0.5;
+	data[ i ] = i / 10;
 }
 out = mgf( data );
 

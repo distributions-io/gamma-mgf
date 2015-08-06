@@ -1,9 +1,9 @@
 using Distributions
 using JSON
 
-alpha = 1
-beta = 1
-d = Gamma( alpha,beta )
+alpha = 3
+beta = 6
+d = Gamma( alpha, 1/beta )
 
 x = [ -5, -2.5, 0, 2.5, 5 ]
 
