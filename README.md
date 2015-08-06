@@ -8,7 +8,7 @@ The [moment-generating function](https://en.wikipedia.org/wiki/Moment-generating
 
 <div class="equation" align="center" data-raw-text="
 	M_X(t) := \mathbb{E}\!\left[e^{tX}\right] = \left( 1 - \frac{t}{\beta} \right)^{-\alpha}" data-equation="eq:mgf_function">
-	<img src="" alt="Moment-generating function (MGF) for a gamma distribution.">
+	<img src="https://cdn.rawgit.com/distributions-io/gamma-mgf/79ff6e4076e49d7fe44d4b5d506c5b0229cf3bd4/docs/img/eqn.svg" alt="Moment-generating function (MGF) for a gamma distribution.">
 	<br>
 </div>
 
